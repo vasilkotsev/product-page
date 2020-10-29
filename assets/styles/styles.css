@@ -11,7 +11,6 @@ h1 {
 }
 
 p {
-  font-size: 0.875rem;
   color: #000000;
   line-height: normal;
 }
@@ -934,7 +933,7 @@ html, body {
 
 @media all and (max-width: 768px) {
   html {
-    font-size: 90%;
+    font-size: 95%;
   }
   .product-img-gallery {
     flex-flow: column;
@@ -960,7 +959,7 @@ html, body {
 
 @media all and (max-width: 576px) {
   html {
-    font-size: 85%;
+    font-size: 90%;
   }
   .product-shop-details-box {
     padding: 40px 0 15px;
