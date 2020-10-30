@@ -393,7 +393,7 @@ html, body {
 
 /* Popup cart styles */
 
-.popup {
+.popup-modal {
   display: none;
   justify-content: center;
   align-items: center;
@@ -410,12 +410,16 @@ html, body {
   overflow-y: auto;
 }
 
+.popup-modal.show-popup {
+  display: flex;
+}
+
 .popup-product-row {
   display: flex;
   align-items: center;
 }
 
-.popup .popup-title {
+.popup-modal .popup-title {
   width: 100%;
   max-width: calc(100% - 40px);
   line-height: 1.2;
@@ -436,10 +440,6 @@ html, body {
 .popup-product-price {
   padding-top: 10px;
   font-weight: 700;
-}
-
-.popup.show-popup {
-  display: flex;
 }
 
 .popup-container {
@@ -586,46 +586,6 @@ html, body {
   object-fit: contain;
 }
 
-/* Breadcrumbs styles */
-
-.breadcrumbs-nav {
-  width: 100%;
-  margin-left: -10px;
-}
-
-.breadcrumbs-nav .breadcrumbs-list {
-  display: flex;
-  align-items: center;
-}
-
-.breadcrumbs-list .breadcrumbs-item {
-  color: #757575;
-  display: flex;
-  align-items: baseline;
-  align-self: first baseline;
-  font-weight: 300;
-}
-
-.breadcrumbs-list .breadcrumbs-item.active {
-  color: #000000;
-  font-weight: 400;
-}
-
-.breadcrumbs-list .breadcrumbs-item i {
-  padding: 0 7px;
-  font-size: 15px;
-}
-
-.breadcrumbs-list .breadcrumbs-link {
-  color: #757575;
-  padding: 7px;
-}
-
-.breadcrumbs-list .breadcrumbs-link:hover {
-  text-decoration: underline;
-  color: #000000;
-}
-
 /* Image Gallery styles */
 
 .product-img-gallery {
@@ -666,6 +626,193 @@ html, body {
 .main-img-holder .main-img {
   width: 100%;
   height: auto;
+}
+
+/* Image Gallery Modal Styles */
+
+.image-modal-gallery {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 4;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  outline: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.image-modal-gallery.show-modal {
+  display: flex;
+}
+
+.image-modal-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+  color: grey;
+  z-index: 1;
+  font-size: 60px;
+  cursor: pointer;
+  padding: 7px;
+}
+
+.carousel-holder-photo {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  position: relative;
+}
+
+/* Parent wrapper to carousel. Width can be changed as needed. */
+
+.carousel-wrapper {
+  overflow: hidden;
+  width: 90%;
+  margin: auto;
+}
+
+/* Apply 'border-box' to 'box-sizing' so border and padding is included in the width and height. */
+
+.carousel-wrapper * {
+  box-sizing: border-box;
+}
+
+/* We'll be using the 'transform' property to move the carousel's items, so setting the 'transform-style' to 'preserve-3d' will make sure our nested elements are rendered properly in the 3D space. */
+
+.carousel {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+/* By default we're hiding items (except the initial one) until the JS initiates. Elements are absolutely positioned with a width of 100% (as we're styling for mobile first), letting the content's height dictate the height of the carousel. Our magic property here for all our animation needs is 'transition', taking the properties we wish to animate 'transform' and 'opacity', along with the length of time in seconds. */
+
+.carousel__photo {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: auto;
+  padding: 1rem 4rem;
+  z-index: 100;
+  transition: transform .5s, opacity .5s, z-index .5s;
+}
+
+/* Display the initial item and bring it to the front using 'z-index'. These styles also apply to the 'active' item. */
+
+.carousel__photo.initial, .carousel__photo.active {
+  opacity: 1;
+  position: relative;
+  z-index: 900;
+}
+
+/* Set 'z-index' to sit behind our '.active' item. */
+
+.carousel__photo.prev, .carousel__photo.next {
+  z-index: 800;
+}
+
+/* Translate previous item to the left */
+
+.carousel__photo.prev {
+  transform: translateX(-100%);
+}
+
+/* Translate next item to the right */
+
+.carousel__photo.next {
+  transform: translateX(100%);
+}
+
+/* Style navigation buttons to sit in the middle, either side of the carousel. */
+
+.carousel__button--prev, .carousel__button--next {
+  position: absolute;
+  top: 50%;
+  width: 3rem;
+  height: 3rem;
+  background-color: #FFF;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  /* Sit on top of everything */
+  border: 1px solid black;
+  /*  opacity: 0;  Hide buttons until carousel is initialised 
+  transition:opacity 1s;*/
+}
+
+.carousel__button--prev {
+  left: 0;
+}
+
+.carousel__button--next {
+  right: 0;
+}
+
+/* Use pseudo elements to insert arrows inside of navigation buttons */
+
+.carousel__button--prev::after, .carousel__button--next::after {
+  content: " ";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  top: 50%;
+  left: 54%;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.carousel__button--next::after {
+  left: 47%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Breadcrumbs styles */
+
+.breadcrumbs-nav {
+  width: 100%;
+  margin-left: -10px;
+}
+
+.breadcrumbs-nav .breadcrumbs-list {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbs-list .breadcrumbs-item {
+  color: #757575;
+  display: flex;
+  align-items: baseline;
+  align-self: first baseline;
+  font-weight: 300;
+}
+
+.breadcrumbs-list .breadcrumbs-item.active {
+  color: #000000;
+  font-weight: 400;
+}
+
+.breadcrumbs-list .breadcrumbs-item i {
+  padding: 0 7px;
+  font-size: 15px;
+}
+
+.breadcrumbs-list .breadcrumbs-link {
+  color: #757575;
+  padding: 7px;
+}
+
+.breadcrumbs-list .breadcrumbs-link:hover {
+  text-decoration: underline;
+  color: #000000;
 }
 
 /* Description Section styles */
@@ -952,9 +1099,9 @@ html, body {
   .recomended-products-title {
     padding-top: 20px;
   }
-  /* .popup-product-cart .popup-img-holder {
-    flex: 1 0 auto;
-  } */
+  .image-modal-close-btn {
+    font-size: 40px;
+  }
 }
 
 @media all and (max-width: 576px) {
@@ -973,8 +1120,8 @@ html, body {
   .shop-basket-btn i {
     margin-right: 0;
   }
-  .breadcrumbs-list .breadcrumbs-item {
-    display: none;
+  .breadcrumbs-list .breadcrumbs-item, .breadcrumbs-list .breadcrumbs-item i {
+    font-size: 12px;
   }
   .popup-container {
     height: 100vh;
@@ -983,6 +1130,10 @@ html, body {
   }
   .recommended-products-wrapper {
     margin-top: 5px;
+  }
+  .image-modal-close-btn {
+    font-size: 30px;
+    right: 20px;
   }
 }
 
