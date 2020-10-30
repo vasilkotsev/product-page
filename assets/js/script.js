@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Popup Modal cart functionality
+  // Popup Modal checkout functionality
   let addCartBtn = document.querySelector(
     ".product-shop-details-box .cart-add-btn"
   );
@@ -51,9 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Carousel Image Gallery Modal Functionallity
-  let imageModalGallery = document.getElementById("modal-img-gallery");
-  let imageModalCloseBtn = document.querySelector(
+  // Carousel Image Gallery Modal Functionality
+  let modalImagelGallery = document.getElementById("modal-img-gallery");
+  let modalImageCloseBtn = document.querySelector(
     "#modal-img-gallery .image-modal-close-btn"
   );
   let tumbnailImages = document.querySelectorAll(
@@ -63,15 +63,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tumbnailImages.forEach((tumbnailImg, tumbnailIndex) => {
     tumbnailImg.addEventListener("click", () => {
-      imageModalGallery.classList.add("show-modal");
+      slide = tumbnailIndex;
+      modalImagelGallery.classList.add("show-modal");
       document.body.style.overflow = "hidden";
-      moveCarouselTo(tumbnailIndex);
+      moveCarouselTo(slide);
     });
   });
 
-  imageModalCloseBtn.addEventListener("click", () => {
-    imageModalGallery.classList.remove("show-modal");
+  modalImageCloseBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    modalImagelGallery.classList.remove("show-modal");
     document.body.style.overflow = "auto";
+  });
+
+  modalImagelGallery.addEventListener("click", (e) => {
+    if (e.target === modalImagelGallery) {
+      modalImagelGallery.classList.remove("show-modal");
+      document.body.style.overflow = "auto";
+    }
   });
 
   // Variables to target our base class,  get carousel items, count how many carousel items there are, set the slide to 0 (which is the number that tells us the frame we're on), and set motion to true which disables interactivity.
@@ -155,7 +164,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Next navigation handler
-  function moveNext() {
+  function moveNext(e) {
+    e.stopPropagation();
     // Check if moving
     if (!moving) {
       // If it's the last slide, reset to 0, else +1
@@ -171,7 +181,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Previous navigation handler
-  function movePrev() {
+  function movePrev(e) {
+    e.stopPropagation();
     // Check if moving
     if (!moving) {
       // If it's the first slide, set as the last slide, else -1
