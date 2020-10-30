@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Hamburger menu functionality
   let menu = document.querySelector(".menu");
-
   let logo = document.getElementById("logo");
   let hamburger = document.querySelector("header .hamburger");
   let html = document.getElementsByTagName("html");
@@ -28,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Popup Modal cart functionality
-
   let addCartBtn = document.querySelector(
     ".product-shop-details-box .cart-add-btn"
   );
@@ -54,28 +52,32 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Carousel Image Gallery Modal Functionallity
+  let imageModalGallery = document.getElementById("modal-img-gallery");
+  let imageModalCloseBtn = document.querySelector(
+    "#modal-img-gallery .image-modal-close-btn"
+  );
+  let tumbnailImages = document.querySelectorAll(
+    "#product-img-gallery .tumbnail-img"
+  );
+  let slide = 0;
 
-  let imageModalGallery = document.querySelector(".image-modal-gallery");
-  let imageModalCloseBtn = document.querySelector(".image-modal-close-btn");
-  let tumbnailImages = document.querySelectorAll(".tumbnail-img");
-
-  tumbnailImages.forEach((tumbnailImg) => {
+  tumbnailImages.forEach((tumbnailImg, tumbnailIndex) => {
     tumbnailImg.addEventListener("click", () => {
       imageModalGallery.classList.add("show-modal");
-      document.body.style.overflow="hidden";
+      document.body.style.overflow = "hidden";
+      moveCarouselTo(tumbnailIndex);
     });
-  })
+  });
 
   imageModalCloseBtn.addEventListener("click", () => {
     imageModalGallery.classList.remove("show-modal");
     document.body.style.overflow = "auto";
-  })
+  });
 
   // Variables to target our base class,  get carousel items, count how many carousel items there are, set the slide to 0 (which is the number that tells us the frame we're on), and set motion to true which disables interactivity.
   let itemClassName = "carousel__photo";
   let items = document.getElementsByClassName("carousel__photo");
   let totalItems = items.length;
-  let slide = 0;
   let moving = true;
 
   // To initialise the carousel we'll want to update the DOM with our own classes

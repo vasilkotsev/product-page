@@ -588,7 +588,7 @@ html, body {
 
 /* Image Gallery styles */
 
-.product-img-gallery {
+#product-img-gallery {
   display: flex;
 }
 
@@ -630,7 +630,7 @@ html, body {
 
 /* Image Gallery Modal Styles */
 
-.image-modal-gallery {
+#modal-img-gallery {
   display: none;
   justify-content: center;
   align-items: center;
@@ -647,7 +647,7 @@ html, body {
   overflow-y: auto;
 }
 
-.image-modal-gallery.show-modal {
+#modal-img-gallery.show-modal {
   display: flex;
 }
 
@@ -1082,7 +1082,7 @@ html, body {
   html {
     font-size: 95%;
   }
-  .product-img-gallery {
+  #product-img-gallery {
     flex-flow: column;
   }
   .main-img-holder {
