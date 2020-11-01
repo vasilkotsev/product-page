@@ -1,4 +1,32 @@
+const item = {
+  title: "Дамска чанта PINKO",
+  model: "Love Mini Puff 1",
+  color: "Черен",
+  price: 640.00,
+  mainImageSrc: "/assets/images/picture-1.jpg",
+};
+
 document.addEventListener("DOMContentLoaded", () => {
+  
+  // Adding some mocked data dynamically to the page
+  const { title, model, color, price, mainImageSrc } = item;
+
+  let productTitle = document.querySelector(
+    "#main-product-view .product-title"
+  );
+  let productSubtitle = document.querySelector(
+    "#main-product-view .product-subtitle"
+  );
+  let productPriceParagraph = document.querySelector(
+    ".product-shop-details .product-price"
+  );
+  let productMainImage = document.querySelector(".main-img-holder .main-img");
+
+  productTitle.innerHTML = title;
+  productSubtitle.innerHTML = model;
+  productPriceParagraph.innerHTML = `${price.toFixed(2)} лв.`;
+  productMainImage.src = mainImageSrc;
+
   // Hamburger menu functionality
   let menu = document.querySelector(".menu");
   let logo = document.getElementById("logo");
@@ -32,10 +60,31 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   let popupModal = document.querySelector(".popup-modal");
   let closePopupBtn = document.querySelector(".popup-close-btn");
+  let popupProductTitle = document.querySelector(
+    ".popup-modal .popup-product-title"
+  );
+  let popupProductSubtitle = document.querySelector(
+    ".popup-modal .popup-product-subtitle"
+  );
+  let popupProductColorParagraph = document.querySelector(
+    ".popup-modal .popup-product-color"
+  );
+  let popupProductPriceParagraph = document.querySelector(
+    ".popup-modal .popup-product-price"
+  );
+  let popupProductMainImage = document.querySelector(
+    ".popup-modal .popup-product-img"
+  );
 
   addCartBtn.addEventListener("click", () => {
     popupModal.classList.add("show-popup");
     document.body.style.overflow = "hidden";
+    // // Adding some mocked data dynamically to the popup
+    popupProductTitle.innerHTML = title;
+    popupProductSubtitle.innerHTML = model;
+    popupProductColorParagraph.innerHTML = `Цвят: ${color}`;
+    popupProductPriceParagraph.innerHTML = `${price.toFixed(2)} лв.`;
+    popupProductMainImage.src = mainImageSrc;
   });
 
   closePopupBtn.addEventListener("click", (e) => {
