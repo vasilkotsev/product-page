@@ -967,9 +967,6 @@ html, body {
 /* Media queries */
 
 @media all and (max-width: 992px) {
-  /* html {
-    font-size: 90%;
-  } */
   #header .top-bar {
     display: none;
   }
